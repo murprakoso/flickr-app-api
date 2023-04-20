@@ -1,0 +1,38 @@
+router.get('/photos-public', async (req, res) => {
+    let photosPublic = 'https://api.flickr.com/services/feeds/photos_public.gne?format=json'
+    try {
+        const response = await axios.get(photosPublic)
+        // response(res, 200, false, '', jsonData);
+        res.status(200).json(response.data).end()
+        // return response;
+    } catch (error) {
+        console.error(error)
+        response(res, 500, false, 'Internal server error')
+    }
+})
+
+router.get('/photos', async (req, res) => {
+    const apiKey = 'cebc9f60ed18e10a4272ccbc0c13ad17'
+
+    axios
+        .get(
+            `https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=${apiKey}&format=json&nojsoncallback=1`
+        )
+        .then((response) => {
+            // Handle the response data here
+            const photos = response.data.photos.photo.map((photo) => {
+                return {
+                    id: photo.id,
+                    title: photo.title,
+                    owner: photo.owner,
+                    url: `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`,
+                }
+            })
+            res.json(photos)
+            //   res.json(response.data.photos.photo);
+        })
+        .catch((error) => {
+            console.log(error)
+            res.status(500).send('Internal server error')
+        })
+})
