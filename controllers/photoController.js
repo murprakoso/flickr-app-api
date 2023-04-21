@@ -3,13 +3,16 @@ import response from '../response.js'
 
 const apiKey = process.env.FLICKR_APIKEY
 
+/** get recent photos */
 const getPhotos = async (req, res) => {
     // const apiKey = 'cebc9f60ed18e10a4272ccbc0c13ad17'
-    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=${apiKey}&format=json&nojsoncallback=1`
+    const qPage = req.query.page
+    const qPerPage = 10
+
+    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=${apiKey}&format=json&per_page=${qPerPage}&page=${qPage}&nojsoncallback=1`
 
     try {
         const result = await axios.get(url)
-
         const photos = result.data.photos.photo.map((photo) => {
             return {
                 id: photo.id,
@@ -18,7 +21,17 @@ const getPhotos = async (req, res) => {
                 url: `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`,
             }
         })
-        return response(res, 200, true, '', photos)
+
+        const { page, pages, perpage, total } = result.data.photos
+        const data = {
+            page,
+            pages,
+            perpage,
+            total,
+            photos,
+        }
+
+        return response(res, 200, true, '', data)
     } catch (error) {
         return response(res, 500, 'Internal server error', error.message)
     }
