@@ -8,7 +8,7 @@ const getPhotos = async (req, res) => {
     const qPage = req.query.page
     const qPerPage = 20
 
-    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=${apiKey}&format=json&per_page=${qPerPage}&page=${qPage}&nojsoncallback=1`
+    const url = `https://api.flickr.com/services/rest/?method=flickr.photos.getRecent&api_key=${apiKey}&format=json&per_page=${qPerPage}&page=${qPage}&safe_search=3&nojsoncallback=1`
 
     try {
         const result = await axios.get(url)
