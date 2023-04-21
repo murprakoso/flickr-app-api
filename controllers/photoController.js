@@ -36,8 +36,25 @@ const getPhotos = async (req, res) => {
     }
 }
 
-const getSinglePhoto = (req, res) => {
-    return response(res, 200, true, 'get single photo')
+/** Single detail photo */
+const getSinglePhoto = async (req, res) => {
+    const { photoId } = req.params
+
+    const url = `https://www.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=${apiKey}&photo_id=${photoId}&format=json&nojsoncallback=1`
+
+    try {
+        const result = await axios.get(url)
+
+        const { photo } = result.data
+        const data = {
+            url: `https://live.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}.jpg`,
+            ...result.data.photo,
+        }
+
+        return response(res, 200, true, '', data)
+    } catch (error) {
+        return response(res, 500, 'Internal server error', error.message)
+    }
 }
 
 /** search feeds/tags */
