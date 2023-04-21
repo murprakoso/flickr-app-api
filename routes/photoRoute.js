@@ -6,7 +6,6 @@ const router = Router()
 // router
 router.get('/photos', controller.getPhotos)
 router.get('/photos/single', controller.getSinglePhoto)
-router.get('/tags', controller.getTags)
 router.get('/search', controller.search)
 router.get('/feeds', controller.feeds)
 
