@@ -62,7 +62,8 @@ const search = async (req, res) => {
     const { tags, page } = req.query
     const perPage = 20
 
-    const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=cats&per_page=${perPage}&page=${page}&format=json&nojsoncallback=1`
+    // const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=cats&per_page=${perPage}&page=${page}&format=json&nojsoncallback=1`
+    const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${tags}&privacy_filter=1&safe_search=3&per_page=${perPage}&page=${page}&format=json&nojsoncallback=1`
 
     try {
         const result = await axios.get(url)
