@@ -68,7 +68,7 @@ const search = async (req, res) => {
     try {
         const result = await axios.get(url)
 
-        const photos = result.data.photos.photo.map((photo) => {
+        const photos = result.data.photos.photo?.map((photo) => {
             return {
                 id: photo.id,
                 title: photo.title,
