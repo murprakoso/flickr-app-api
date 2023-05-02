@@ -7,6 +7,7 @@ describe('GET /api/photos', () => {
   it('responds with a json data', async () => {
     await request(app)
       .get('/api/photos')
+      .timeout({ response: 10000 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200);
@@ -17,6 +18,7 @@ describe('GET /api/photos/:id', () => {
   it('responds with a spesified json data by photo id', async () => {
     await request(app)
       .get('/api/photos/14965285782')
+      .timeout({ response: 10000 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200);
@@ -27,6 +29,7 @@ describe('GET /api/search?tags=:keyword', () => {
   it('responds with a spesified json data by keyword', async () => {
     await request(app)
       .get('/api/search?tags=dog')
+      .timeout({ response: 10000 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200);
@@ -37,6 +40,7 @@ describe('GET /api/feeds', () => {
   it('responds with a json data', async () => {
     await request(app)
       .get('/api/feeds')
+      .timeout({ response: 10000 })
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
       .expect(200)
