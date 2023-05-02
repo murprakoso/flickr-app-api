@@ -2,11 +2,12 @@
   "name": "flickr_backend_rest_api",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "lint": "eslint --fix src",
+    "test": "jest"
   },
   "keywords": [],
   "author": "Eko Prakoso <murprakoso@gmail.com>",
@@ -17,6 +18,16 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "helmet": "^6.1.5",
+    "morgan": "^1.10.0",
     "xml2js": "^0.5.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.35.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5",
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.21",
+    "supertest": "^6.3.3"
   }
 }
