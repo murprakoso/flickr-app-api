@@ -3,18 +3,21 @@ const request = require('supertest');
 const app = require('../src/app');
 
 describe('GET /', () => {
-  it('responds with a json message', (done) => {
-    request(app)
+  it('responds with a json message', async () => {
+    await request(app)
       .get('/')
       .set('Accept', 'application/json')
       .expect('Content-Type', /json/)
-      .expect(
-        200,
-        {
-          message: 'Server is live!',
-        },
-        // eslint-disable-next-line comma-dangle
-        done
-      );
+      .expect(200, { message: 'Server is live!' });
+  });
+});
+
+describe('app', () => {
+  it('responds with a not found message', async () => {
+    await request(app)
+      .get('/not-found-url')
+      .set('Accept', 'application/json')
+      .expect('Content-Type', /json/)
+      .expect(404);
   });
 });
